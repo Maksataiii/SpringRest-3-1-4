@@ -1,16 +1,12 @@
 package ru.kata.spring.boot_security.demo.configs;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
@@ -19,31 +15,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.successUserHandler = successUserHandler;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
-    }
+@Override
+protected void configure(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+            .csrf()
+            .disable()
+            .authorizeRequests()
+            //Доступ только для не зарегистрированных пользователей
+            //Доступ только для пользователей с ролью Администратор
+            .antMatchers("/", "/register").permitAll()
+            .antMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers("/user").hasAnyRole("USER", "ADMIN")
 
-    // аутентификация inMemory
+            //Все остальные страницы требуют аутентификации
+            .anyRequest().authenticated()
+            .and()
+            //Настройка для входа в систему
+            .formLogin()
+            .loginPage("/login")
+            //Перенарпавление на главную страницу после успешного входа
+//            .defaultSuccessUrl("/")
+            .permitAll()
+            .successHandler(successUserHandler)
+            .and()
+            .logout()
+            .permitAll()
+            .logoutSuccessUrl("/");
+}
+
     @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("user")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
+    public PasswordEncoder selectPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
 }
