@@ -17,7 +17,6 @@ import java.util.*;
 
 
 @Service
-@Transactional
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -27,15 +26,11 @@ public class UserService implements UserDetailsService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-//    @PersistenceContext
-//    private EntityManager em;
+
+    @Transactional(readOnly = true)
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserEntityByUsername(username);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
         return user;
     }
 

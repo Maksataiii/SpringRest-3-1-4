@@ -39,11 +39,10 @@ public class AuthController {
         String err = "Пароли не совпадают";
         User user = new User();
         user.setUsername(formUser.getUsername());
-        user.setNickname(formUser.getUsername().toUpperCase());
         user.setPassword(passwordEncoder.encode(formUser.getPassword()));
         user.setRoles(Collections.singleton(roleService.createRole("ROLE_USER")));
 
-        if (formUser.getPassword().equals(formUser.getPasswordConfirm())) {
+        if (formUser.getPassword().equals(formUser.getConfirm())) {
             if (userService.loadUserByUsername(user.getUsername()) == null) {
                 userService.createOrUpdate(user);
                 System.out.println(user);

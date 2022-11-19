@@ -22,11 +22,6 @@ public class Role implements GrantedAuthority {
 
     public Role() {
     }
-    public Role(Long id, String authority) {
-        this.id = id;
-        this.authority = authority;
-    }
-
     public Role(String role) {
     if (!role.startsWith("ROLE_")) {
         role = "ROLE_" + role;

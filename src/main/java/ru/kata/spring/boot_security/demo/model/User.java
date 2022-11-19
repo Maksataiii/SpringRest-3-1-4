@@ -21,8 +21,7 @@ public class User implements UserDetails {
     private String password;
     private String email;
     @Transient
-    private String passwordConfirm;
-    private String nickname;
+    private String confirm;
 
     @ManyToMany
     @JoinTable(name = "users_roles",
