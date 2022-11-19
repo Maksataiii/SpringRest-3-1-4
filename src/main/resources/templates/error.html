@@ -2,7 +2,11 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
     <title>Error</title>
+
 </head>
 <body>
 <h3>Какая-то ошибка</h3>

@@ -3,7 +3,11 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
     <title>Spring</title>
+
 </head>
 <body>
 <h2>Hello)</h2>

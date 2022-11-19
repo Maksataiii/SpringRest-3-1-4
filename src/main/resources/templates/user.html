@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
     <title>Profile</title>
+
 </head>
 <body>
 <h1>Info about user</h1>

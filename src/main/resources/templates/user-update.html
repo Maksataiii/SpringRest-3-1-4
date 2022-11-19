@@ -2,6 +2,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+  </form>
   <title>Update user</title>
 </head>
 <body>
