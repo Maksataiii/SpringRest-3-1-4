@@ -24,7 +24,7 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
             //Доступ только для не зарегистрированных пользователей
             .antMatchers("/", "/register").permitAll()
             //Доступ только для пользователей с ролью Администратор
-            .antMatchers("/admin/**").hasAnyRole("USER","ADMIN")
+            .antMatchers("/admin/**").hasRole("USER")
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
 
             //Все остальные страницы требуют аутентификации
