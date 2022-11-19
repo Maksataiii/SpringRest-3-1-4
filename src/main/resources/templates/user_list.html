@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Getting Started</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -13,24 +13,35 @@
       <thead>
       <tr>
         <th>Id</th>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>UserName</th>
+        <th>Password</th>
         <th>Email</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
+        <td><a th:href="@{/user/{i}(i=${user.getId()})}" th:text="${user.username}"></a></td>
         <td th:text="${user.password}"></td>
         <td th:text="${user.email}"></td>
-        <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a> </td>
-        <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a> </td>
+        <td class="no-border">
+          <form th:method="get" th:action="@{/admin/{i}/edit(i=${user.getId()})}">
+            <input type="submit" value="Edit"/>
+          </form>
+        </td>
+        <td class="no-border">
+          <form th:method="delete" th:action="@{/admin}">
+            <input type="hidden" name="id" th:value="${user.getId()}">
+            <input type="submit" value="Delete"/>
+          </form>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
-<p><a href="/user-create">Create user</a></p>
+  <form th:method="get" th:action="@{/admin/new}">
+    <input type="submit" value="Create"/>
+  </form>
 </div>
 </body>
 </html>

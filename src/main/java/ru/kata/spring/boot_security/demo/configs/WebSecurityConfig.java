@@ -22,9 +22,9 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
             .disable()
             .authorizeRequests()
             //Доступ только для не зарегистрированных пользователей
-            //Доступ только для пользователей с ролью Администратор
             .antMatchers("/", "/register").permitAll()
-            .antMatchers("/admin/**").hasRole("ADMIN")
+            //Доступ только для пользователей с ролью Администратор
+            .antMatchers("/admin/**").hasRole("USER")
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
 
             //Все остальные страницы требуют аутентификации
@@ -33,8 +33,6 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
             //Настройка для входа в систему
             .formLogin()
             .loginPage("/login")
-            //Перенарпавление на главную страницу после успешного входа
-//            .defaultSuccessUrl("/")
             .permitAll()
             .successHandler(successUserHandler)
             .and()

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <title>Profile</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<h1>Info about user</h1>
+<p th:text="${'Id: ' + user.getId()}" />
+<p th:text="${'Username: ' + user.getUsername()}" />
+<p th:text="${'Email: ' + user.getEmail()}" />
 </body>
 </html>

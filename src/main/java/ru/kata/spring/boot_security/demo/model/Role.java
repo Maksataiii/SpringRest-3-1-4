@@ -4,7 +4,13 @@ package ru.kata.spring.boot_security.demo.model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity

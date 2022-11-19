@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping()
     public String showProfile(Model model, @AuthenticationPrincipal User userEntity) {
         model.addAttribute("user", userEntity);
-        return "profile";
+        return "user";
     }
 
     @GetMapping("/{id}")
@@ -39,7 +39,7 @@ public class UserController {
             return "user";
         } else {
             model.addAttribute("messages", Arrays.asList("Нет такого пользователя.", "Вы не угадали ID'шник ))"));
-            return "admin";
+            return "user_list";
         }
     }
 
