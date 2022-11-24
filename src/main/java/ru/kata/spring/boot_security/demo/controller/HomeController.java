@@ -17,11 +17,11 @@ public class HomeController {
 
     @GetMapping
     public String showHomePage() {
-        return "index";
+        return "home";
     }
 
     @PostMapping
     public String onlyGetMapping(Model model) {
-        return "index";
+        return "home";
     }
 }

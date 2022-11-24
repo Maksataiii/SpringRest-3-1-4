@@ -14,9 +14,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
 
 @Data
 @Entity
@@ -40,9 +38,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles != null
-                ? new HashSet<>(roles)
-                : Collections.emptySet();
+        return roles;
     }
 
     @Override

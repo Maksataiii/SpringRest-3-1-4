@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 public class AuthController {
@@ -30,7 +31,7 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String showForm(Model model) {
+    public String registerForm(Model model) {
         return "register";
     }
 

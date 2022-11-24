@@ -16,7 +16,9 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -51,7 +53,7 @@ public class AdminController {
     /***
      * Подготовить объект User для сохранения в базу
      */
-    @GetMapping("/new")
+    @GetMapping("/newUser")
     public String createForm(@ModelAttribute("user") User user) {
         return "user-create";
     }
@@ -60,7 +62,7 @@ public class AdminController {
      * Сохранить в базу
      */
     @PostMapping
-    public String create(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("user") User user) {
         user.setRoles(Collections.singleton(roleService.createRole("USER")));
         user.setPassword(passwordEncoder.encode("0000"));
         user.setUsername(user.getUsername().toLowerCase());
@@ -78,8 +80,8 @@ public class AdminController {
      * Получить всех пользователей
      */
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("users", userService.getList());
+    public String adminPage(Model model) {
+        model.addAttribute("users", userService.getUsersList());
         return "user_list";
     }
 
@@ -87,8 +89,8 @@ public class AdminController {
      * Получить одного пользователя
      */
     @GetMapping("/{id}")
-    public String read(Model model, @PathVariable(name = "id") Long id) {
-        model.addAttribute("user", userService.get(id));
+    public String getUserById(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("user", userService.getUser(id));
         return "user";
     }
 
@@ -99,7 +101,7 @@ public class AdminController {
      */
     @GetMapping("/{id}/edit")
     public String editForm(Model model, @PathVariable(name = "id") Long id) {
-        model.addAttribute("user", userService.get(id));
+        model.addAttribute("user", userService.getUser(id));
         return "user-update";
     }
 
@@ -107,8 +109,8 @@ public class AdminController {
      * Сохранить изменённого пользователя
      */
     @PatchMapping()
-    public String edit(@ModelAttribute("user") User user) {
-        User oldUser = userService.get(user.getId());
+    public String editUser(@ModelAttribute("user") User user) {
+        User oldUser = userService.getUser(user.getId());
         user.setUsername(oldUser.getUsername());
         user.setPassword(oldUser.getPassword());
         user.setRoles(oldUser.getRoles());
@@ -122,8 +124,8 @@ public class AdminController {
      * Удалить пользователя (подготовки объекта User не требуется)
      */
     @DeleteMapping()
-    public String delete(Model model, @Param("id") Long id) {
-        userService.delete(id);
+    public String deleteUserById(Model model, @Param("id") Long id) {
+        userService.deleteUser(id);
         return "redirect:/admin";
     }
 }

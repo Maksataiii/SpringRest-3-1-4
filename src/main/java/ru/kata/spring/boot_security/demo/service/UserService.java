@@ -1,24 +1,20 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Collection;
-import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -32,16 +28,16 @@ public class UserService implements UserDetailsService {
     }
 
 //
+
     @Transactional
     public void createOrUpdate(User user) {
         User old = userRepository.findUserEntityByUsername(user.getUsername());
         if (old != null) user.setId(old.getId());
         userRepository.save(user);
     }
-    public Collection<User> getList() {
-        Collection<User> list = new ArrayList<>();
-        userRepository.findAll().forEach(list::add);
-        return list;
+    public Collection<User> getUsersList() {
+
+        return userRepository.findAll();
     }
 
     /***
@@ -49,11 +45,11 @@ public class UserService implements UserDetailsService {
      * @param id ID пользователя
      * @return пользователь либо null
      */
-    public User get(Long id) {
+    public User getUser(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void delete(Long id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 }

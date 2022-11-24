@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 
+import java.util.List;
 
 
 @Service
@@ -17,6 +18,9 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
+    public List<Role> listRoles() {
+        return roleRepository.findAll();
+    }
 
     public Role createRole(String role) {
         if (!role.startsWith("ROLE_")) {

@@ -33,7 +33,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String showProfileFromAdmin(Model model, @PathVariable Long id) {
-        User user = userService.get(id);
+        User user = userService.getUser(id);
         if (user != null) {
             model.addAttribute("user", user);
             return "user";
