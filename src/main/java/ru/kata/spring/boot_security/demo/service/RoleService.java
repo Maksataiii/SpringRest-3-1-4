@@ -26,10 +26,15 @@ public class RoleService {
         if (!role.startsWith("ROLE_")) {
             role = "ROLE_" + role;
         }
-        Role entity = roleRepository.findRoleEntityByAuthority(role);
+        Role entity = roleRepository.findRoleByRolename(role);
         if (entity == null) {
             entity = roleRepository.save(new Role(role));
         }
         return entity;
     }
+
+    public List<Role> getRoles() {
+        return roleRepository.findAll();
+    }
+
 }

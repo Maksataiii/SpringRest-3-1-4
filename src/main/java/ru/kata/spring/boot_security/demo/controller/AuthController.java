@@ -3,6 +3,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
@@ -31,7 +32,7 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String registerForm(Model model) {
+    public String registrationAdmin(@ModelAttribute(name = "admin") User user){
         return "register";
     }
 
@@ -41,12 +42,11 @@ public class AuthController {
         User user = new User();
         user.setUsername(formUser.getUsername());
         user.setPassword(passwordEncoder.encode(formUser.getPassword()));
-        user.setRoles(Collections.singleton(roleService.createRole("ROLE_USER")));
+        user.setRoles(Collections.singleton(roleService.createRole("ROLE_ADMIN")));
 
         if (formUser.getPassword().equals(formUser.getConfirm())) {
             if (userService.loadUserByUsername(user.getUsername()) == null) {
                 userService.createOrUpdate(user);
-                System.out.println(user);
                 return "redirect:/login";
             }
             err = "Логин занят";
