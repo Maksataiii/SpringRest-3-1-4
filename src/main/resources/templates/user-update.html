@@ -26,11 +26,10 @@
       <td><label for="email">Email: </label></td>
       <td><input type="text" th:field="*{email}" id="email"/></td>
     </tr>
-    <tr>
+
       <td><p><input type="checkbox" name="roles" id="roles"
-                    th:each="role : ${listRoles}" th:value="${role.getId()}" th:text="${role.getRolename()}"
-                    th:field="*{roles}"></p></td>
-    </tr>
+                    th:each="role : ${listRoles}" th:value="${role.id}" th:text="${role.rolename}"
+                    th:field="*{roles[0].rolename}"></p></td>
   </table>
   <input type="submit" value="Update"/>
 </form>
