@@ -22,11 +22,15 @@
                 <td><label for="email">Email: </label></td>
                 <td><input type="text" th:field="*{email}" id="email"/></td>
             </tr>
-
             <tr>
-                <td><p><input type="checkbox" name="roles" id="roles"
-                          th:each="role : ${listOfRoles}" th:value="${role.getId()}" th:text="${role.rolename}"
-                          th:field="*{roles}"></p></td>
+                <td>
+                    <label>Roles:
+                        <select size="1" multiple name="listOfRoles" required="required">
+                            <option selected="selected" value="1">USER</option>
+                            <option value="2">ADMIN</option>
+                        </select>
+                    </label>
+                </td>
             </tr>
         </table>
         <input type="submit" value="Add"/>

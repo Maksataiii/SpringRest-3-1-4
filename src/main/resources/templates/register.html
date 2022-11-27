@@ -37,9 +37,14 @@
                    autofocus>
         </p>
         <tr>
-            <td><p><input type="checkbox" name="roles" id="roles"
-                          th:each="role : ${listOfRoles}" th:value="${role.getId()}" th:text="${role.rolename}"
-                          th:field="*{user.roles}"></p></td>
+            <td>
+                <label>Roles:
+                    <select size="1" multiple name="listRoles" required="required">
+                        <option selected="selected" value="1">USER</option>
+                        <option value="2">ADMIN</option>
+                    </select>
+                </label>
+            </td>
         </tr>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрироваться</button>
         <a class="btn btn-lg btn-secondary btn-block" href="/login">Уже имеется аккаунта</a>

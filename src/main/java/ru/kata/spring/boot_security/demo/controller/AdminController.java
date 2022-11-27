@@ -58,9 +58,9 @@ public class AdminController {
      * Сохранить в базу
      */
     @PostMapping
-    public String createUser(@ModelAttribute("newUser")@Valid User user, BindingResult bindingResult) {
+    public String createUser(@RequestParam("listOfRoles") Collection<Role> roles, @ModelAttribute("newUser")@Valid User user, BindingResult bindingResult) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(user.getRoles());
+        user.setRoles(roles);
         if(bindingResult.hasErrors()) {
             return "redirect:/admin";
         }

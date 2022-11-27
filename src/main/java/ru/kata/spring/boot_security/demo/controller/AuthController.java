@@ -5,9 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
+import java.util.Collection;
 
 @Controller
 public class AuthController {
@@ -35,13 +39,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String processRegister(User formUser, Model model) {
+    public String processRegister(@RequestParam("listRoles") Collection<Role> roles, User formUser, Model model) {
         String err = "Пароли не совпадают";
         User user = new User();
         user.setUsername(formUser.getUsername());
         user.setPassword(passwordEncoder.encode(formUser.getPassword()));
         user.setEmail(formUser.getEmail());
-        user.setRoles(formUser.getRoles());
+        user.setRoles(roles);
         if (formUser.getPassword().equals(formUser.getConfirm())) {
             if (userService.loadUserByUsername(user.getUsername()) == null) {
                 userService.createOrUpdate(user);
