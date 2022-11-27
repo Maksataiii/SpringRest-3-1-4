@@ -9,9 +9,9 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "roles", indexes = {
-        @Index(name = "idx_role_rolename", columnList = "rolename")
-})
+@Table(name = "roles")
+//, indexes = {
+//        @Index(name = "idx_role_rolename", columnList = "rolename"
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

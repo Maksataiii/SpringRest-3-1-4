@@ -19,12 +19,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    @GetMapping(params = "logout")
-    public String logout() {
-        return "redirect:/logout";
-    }
-
     @GetMapping()
     public String showProfile(Model model, @AuthenticationPrincipal User userEntity) {
         model.addAttribute("user", userEntity);

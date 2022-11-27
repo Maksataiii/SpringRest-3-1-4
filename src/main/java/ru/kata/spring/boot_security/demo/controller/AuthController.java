@@ -9,9 +9,6 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.Collections;
-import java.util.List;
-
 @Controller
 public class AuthController {
 
@@ -27,12 +24,13 @@ public class AuthController {
 
 
     @GetMapping("/login")
-    public String loginForm(Model model) {
+    public String loginForm() {
         return "login";
     }
 
     @GetMapping("/register")
-    public String registrationAdmin(@ModelAttribute(name = "admin") User user){
+    public String registrationAdmin(@ModelAttribute("user") User user,Model model){
+        model.addAttribute("listOfRoles", roleService.listRoles());
         return "register";
     }
 
@@ -42,8 +40,8 @@ public class AuthController {
         User user = new User();
         user.setUsername(formUser.getUsername());
         user.setPassword(passwordEncoder.encode(formUser.getPassword()));
-        user.setRoles(Collections.singleton(roleService.createRole("ROLE_ADMIN")));
-
+        user.setEmail(formUser.getEmail());
+        user.setRoles(formUser.getRoles());
         if (formUser.getPassword().equals(formUser.getConfirm())) {
             if (userService.loadUserByUsername(user.getUsername()) == null) {
                 userService.createOrUpdate(user);
@@ -53,16 +51,5 @@ public class AuthController {
         }
         model.addAttribute("error", err);
         return "register";
-    }
-
-
-    @GetMapping(params = "/login/logout")
-    public String logout1() {
-        return "redirect:/logout";
-    }
-
-    @GetMapping(params = "/register/logout")
-    public String logout2() {
-        return "redirect:/logout";
     }
 }
