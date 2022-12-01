@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -27,6 +29,7 @@ import java.util.Collection;
 public class AdminController {
     private UserService userService;
     private RoleService roleService;
+    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
 
@@ -71,8 +74,12 @@ public class AdminController {
      * Получить всех пользователей
      */
     @GetMapping
-    public String adminPage(Model model) {
+    public String adminPage(Model model, @AuthenticationPrincipal User currentUser) {
+
         model.addAttribute("users", userService.getUsersList());
+        model.addAttribute("currentUser",currentUser);
+        model.addAttribute("newUser", new User());
+        model.addAttribute("listOfRoles", roleService.getRoles());
         return "user_list";
     }
 

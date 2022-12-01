@@ -39,7 +39,7 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
             .logout()
             .logoutUrl("/logout")
             .permitAll()
-            .logoutSuccessUrl("/login");
+            .logoutSuccessUrl("/");
 }
     @Bean
     public PasswordEncoder selectPasswordEncoder() {

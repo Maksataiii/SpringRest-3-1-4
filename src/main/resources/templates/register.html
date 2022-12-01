@@ -13,27 +13,27 @@
 <body>
 <div class="container">
     <form class="form-signin" th:method="post" th:action="@{/register}">
-        <h2 class="form-signin-heading">Зарегистрируйтесь пожалуйста</h2>
+        <h2 class="form-signin-heading">Sign up</h2>
         <th:block th:if="${error != null}">
             <p class="text-warning border-warning border" th:text="${'Логин занят'}"/>
         </th:block>
         <p>
             <label for="username" class="sr-only">Логин</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Логин" required
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
                    autofocus>
         </p>
         <p>
             <label for="password" class="sr-only">Пароль</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
         </p>
         <p>
             <label for="confirm" class="sr-only">Пароль</label>
             <input type="password" id="confirm" name="confirm" class="form-control"
-                   placeholder="Подтвердить пароль" required>
+                   placeholder="Confirm password" required>
         </p>
         <p>
             <label for="email" class="sr-only">Почта</label>
-            <input type="text" id="email" name="email" class="form-control" placeholder="Почта" required
+            <input type="text" id="email" name="email" class="form-control" placeholder="Email" required
                    autofocus>
         </p>
         <tr>
@@ -46,8 +46,8 @@
                 </label>
             </td>
         </tr>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрироваться</button>
-        <a class="btn btn-lg btn-secondary btn-block" href="/login">Уже имеется аккаунта</a>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        <a class="btn btn-lg btn-secondary btn-block" href="/login">Sign in</a>
     </form>
 </div>
 </body>
