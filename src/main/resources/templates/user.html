@@ -48,17 +48,19 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Имя</th>
-                                    <th>Фамилия</th>
-                                    <th>Username</th>
-                                    <th>Roles</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbodyAboutUser">
                                 <td th:utext="${user.getId()}">...</td>
-                                <td th:utext="${user.getEmail()()}">...</td>
-                                <td th:utext="${user.getEmail()()}">...</td>
-                                <td th:utext="${user.getUsername()}">...</td>
+                                <td th:utext="${user.getFirstName()}">...</td>
+                                <td th:utext="${user.getLastName()}">...</td>
+                                <td th:utext="${user.getAge()}">...</td>
+                                <td th:utext="${user.getEmail()}">...</td>
                                 <td th:each ="role : ${user.getRoles()}" th:utext=" ${role.rolename}"></td>
                                 </tbody>
                             </table>

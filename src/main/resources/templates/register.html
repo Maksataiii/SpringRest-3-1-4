@@ -18,8 +18,23 @@
             <p class="text-warning border-warning border" th:text="${'Логин занят'}"/>
         </th:block>
         <p>
-            <label for="username" class="sr-only">Логин</label>
+            <label for="username" class="sr-only"></label>
             <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
+                   autofocus>
+        </p>
+        <p>
+            <label for="firstName" class="sr-only"></label>
+            <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" required
+                   autofocus>
+        </p>
+        <p>
+            <label for="lastName" class="sr-only"></label>
+            <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required
+                   autofocus>
+        </p>
+        <p>
+            <label for="age" class="sr-only"></label>
+            <input type="text" id="age" name="age" class="form-control" placeholder="Age" required
                    autofocus>
         </p>
         <p>

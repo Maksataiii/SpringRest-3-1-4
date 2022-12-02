@@ -118,10 +118,11 @@
                                         <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Username</th>
-                                            <th>Password</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Age</th>
                                             <th>Email</th>
-                                            <th>Roles</th>
+                                            <th>Role</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
@@ -129,13 +130,14 @@
                                         <tbody id="tbodyAllUserTable">
                                         <tr th:each ="person : ${users}">
                                             <td th:utext="${person.getId()}">...</td>
-                                            <td th:utext="${person.getUsername()}">...</td>
-                                            <td th:utext="${person.getEmail()}">...</td>
+                                            <td th:utext="${person.getFirstName()}">...</td>
+                                            <td th:utext="${person.getLastName()}">...</td>
+                                            <td th:utext="${person.getAge()}">...</td>
                                             <td th:utext="${person.getEmail()}">...</td>
                                             <td th:each ="role : ${person.getRoles()}" th:utext=" ${role.rolename}"></td>
                                             <td>
                                             <button type="button" class="btn btn-info" data-toggle="modal" th:data-target="${'#editUser' + person.id}">Edit</button>
-                                            </td>
+
                                                 <!--Модальное окно редактирования-->
                                             <div class="modal fade" th:id="${'editUser' + person.id}" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
@@ -157,19 +159,31 @@
                                                                         <p>
                                                                             <label for="firstNameEditUser">
                                                                                 <strong>First Name</strong>
-                                                                                <input class="form-control" th:value="${person.username}" name="firstName" id="firstNameEditUser">
+                                                                                <input class="form-control" th:value="${person.firstName}" name="firstName" id="firstNameEditUser">
                                                                             </label>
                                                                         </p>
                                                                         <p>
                                                                             <label for="lastNameEditUser">
                                                                                 <strong>Last Name</strong>
-                                                                                <input class="form-control" th:value="${person.username}" name="lastName" id="lastNameEditUser">
+                                                                                <input class="form-control" th:value="${person.lastName}" name="lastName" id="lastNameEditUser">
+                                                                            </label>
+                                                                        </p>
+                                                                        <p>
+                                                                            <label for="ageEditUser">
+                                                                                <strong>Age</strong>
+                                                                                <input class="form-control" th:value="${person.age}" name="age" id="ageEditUser">
                                                                             </label>
                                                                         </p>
                                                                         <p>
                                                                             <label for="usernameEditUser">
                                                                                 <strong>Username</strong>
                                                                                 <input class="form-control" th:value="${person.username}" name="username" id="usernameEditUser">
+                                                                            </label>
+                                                                        </p>
+                                                                        <p>
+                                                                            <label for="emailEditUser">
+                                                                                <strong>Email</strong>
+                                                                                <input class="form-control" th:value="${person.email}" name="email" id="emailEditUser">
                                                                             </label>
                                                                         </p>
                                                                         <p>
@@ -197,6 +211,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </td>
                                             <td>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="${'#deleteUser' + person.id}">Delete</button>
                                             </td>
@@ -221,13 +236,25 @@
                                                                             <p>
                                                                                 <label for="firstNameDeleteUser">
                                                                                     <strong>First Name</strong>
-                                                                                    <input class="form-control" th:value="*{person.username}" name="firstName" id="firstNameDeleteUser" disabled>
+                                                                                    <input class="form-control" th:value="*{person.firstName}" name="firstName" id="firstNameDeleteUser" disabled>
                                                                                 </label>
                                                                             </p>
                                                                             <p>
                                                                                 <label for="lastNameDeleteUser">
                                                                                     <strong>Last Name</strong>
-                                                                                    <input class="form-control" th:value="*{person.username}" name="lastName" id="lastNameDeleteUser" disabled>
+                                                                                    <input class="form-control" th:value="*{person.lastName}" name="lastName" id="lastNameDeleteUser" disabled>
+                                                                                </label>
+                                                                            </p>
+                                                                            <p>
+                                                                                <label for="ageDeleteUser">
+                                                                                    <strong>Age</strong>
+                                                                                    <input class="form-control" th:value="*{person.age}" name="age" id="ageDeleteUser" disabled>
+                                                                                </label>
+                                                                            </p>
+                                                                            <p>
+                                                                                <label for="emailDeleteUser">
+                                                                                    <strong>Email</strong>
+                                                                                    <input class="form-control" th:value="*{person.email}" name="email" id="emailDeleteUser" disabled>
                                                                                 </label>
                                                                             </p>
                                                                             <p>
@@ -278,13 +305,25 @@
                                                     <p>
                                                         <label class="container-fluid" for="newUserFirstName">
                                                             <strong>First Name</strong>
-                                                            <input class="form-control" type="text" th:field="*{username}" name="firstName" id="newUserFirstName">
+                                                            <input class="form-control" type="text" th:field="*{firstName}" name="firstName" id="newUserFirstName">
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserLastName">
                                                             <strong>Last Name</strong>
-                                                            <input class="form-control" type="text" th:field="*{email}" name="lastName" id="newUserLastName">
+                                                            <input class="form-control" type="text" th:field="*{lastName}" name="lastName" id="newUserLastName">
+                                                        </label>
+                                                    </p>
+                                                    <p>
+                                                        <label class="container-fluid" for="newUserAge">
+                                                            <strong>Age</strong>
+                                                            <input class="form-control" type="text" th:field="*{age}" name="age" id="newUserAge">
+                                                        </label>
+                                                    </p>
+                                                    <p>
+                                                        <label class="container-fluid" for="newUserEmail">
+                                                            <strong>Email</strong>
+                                                            <input class="form-control" type="text" th:field="*{email}" name="email" id="newUserEmail">
                                                         </label>
                                                     </p>
                                                     <p>
@@ -320,16 +359,18 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Username</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
                                     <th>Email</th>
-                                    <th>Email</th>
-                                    <th>Roles</th>
+                                    <th>Role</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbodyAboutUser">
                                 <td th:utext="${currentUser.getId()}">...</td>
-                                <td th:utext="${currentUser.getUsername()}">...</td>
-                                <td th:utext="${currentUser.getEmail()}">...</td>
+                                <td th:utext="${currentUser.getFirstName()}">...</td>
+                                <td th:utext="${currentUser.getLastName()}">...</td>
+                                <td th:utext="${currentUser.getAge()}">...</td>
                                 <td th:utext="${currentUser.getEmail()}">...</td>
                                 <td th:each ="role : ${currentUser.getRoles()}" th:utext=" ${role.rolename}"></td>
                                 </tbody>

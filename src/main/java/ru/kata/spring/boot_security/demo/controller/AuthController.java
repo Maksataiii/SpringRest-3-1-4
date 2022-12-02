@@ -43,6 +43,9 @@ public class AuthController {
         String err = "Пароли не совпадают";
         User user = new User();
         user.setUsername(formUser.getUsername());
+        user.setFirstName(formUser.getFirstName());
+        user.setLastName(formUser.getLastName());
+        user.setAge(formUser.getAge());
         user.setPassword(passwordEncoder.encode(formUser.getPassword()));
         user.setEmail(formUser.getEmail());
         user.setRoles(roles);

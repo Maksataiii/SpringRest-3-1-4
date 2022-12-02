@@ -108,6 +108,9 @@ public class AdminController {
     @PatchMapping("/{id}")
     public String editUser(@RequestParam("listOfRoles") Collection<Role> roles, @ModelAttribute("editUser") User user, @PathVariable("id") int id) {
         user.setUsername(user.getUsername());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+        user.setAge(user.getAge());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEmail(user.getEmail());
         user.setRoles(roles);
