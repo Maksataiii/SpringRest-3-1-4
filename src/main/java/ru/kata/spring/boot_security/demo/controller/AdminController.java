@@ -105,8 +105,8 @@ public class AdminController {
     /***
      * Сохранить изменённого пользователя
      */
-    @PatchMapping()
-    public String editUser(@RequestParam("listRoles") Collection<Role> roles, @ModelAttribute("user") User user) {
+    @PatchMapping("/{id}")
+    public String editUser(@RequestParam("listOfRoles") Collection<Role> roles, @ModelAttribute("editUser") User user, @PathVariable("id") int id) {
         user.setUsername(user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEmail(user.getEmail());
@@ -117,8 +117,9 @@ public class AdminController {
     /***
      * Удалить пользователя (подготовки объекта User не требуется)
      */
-    @DeleteMapping()
-    public String deleteUserById(@Param("id") Long id) {
+    @DeleteMapping("/{id}")
+    public String deleteUserById(@ModelAttribute("user") User user,
+                                 @PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
