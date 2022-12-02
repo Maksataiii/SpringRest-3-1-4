@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,6 @@ import java.util.Collection;
 public class AdminController {
     private UserService userService;
     private RoleService roleService;
-    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
 
@@ -47,16 +45,6 @@ public class AdminController {
     public void setPasswordEncoder(PasswordEncoder passwordEncoder){
         this.passwordEncoder = passwordEncoder;
     }
-
-    /***
-     * Подготовить объект User для сохранения в базу
-     */
-    @GetMapping("/newUser")
-    public String createForm(Model model, @ModelAttribute("user") User user) {
-        model.addAttribute("listOfRoles", roleService.getRoles());
-        return "user-create";
-    }
-
     /***
      * Сохранить в базу
      */
@@ -75,7 +63,6 @@ public class AdminController {
      */
     @GetMapping
     public String adminPage(Model model, @AuthenticationPrincipal User currentUser) {
-
         model.addAttribute("users", userService.getUsersList());
         model.addAttribute("currentUser",currentUser);
         model.addAttribute("newUser", new User());
@@ -91,17 +78,6 @@ public class AdminController {
         model.addAttribute("user", userService.getUser(id));
         return "user";
     }
-    /***
-     * Подготовить изменения для объекта User
-     */
-    @GetMapping("/{id}/edit")
-    public String editForm(Model model, @PathVariable(name = "id") Long id) {
-        User user = userService.getUser(id);
-        model.addAttribute("user", user);
-        model.addAttribute("listRoles", roleService.getRoles());
-        return "user-update";
-    }
-
     /***
      * Сохранить изменённого пользователя
      */

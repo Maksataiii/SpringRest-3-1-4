@@ -1,60 +1,3 @@
-<!--<!DOCTYPE HTML>-->
-<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--  <title>Getting Started</title>-->
-<!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-<!--  <form th:action="@{/logout}" method="post">-->
-<!--    <button type="submit">Logout</button>-->
-<!--  </form>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div th:switch="${users}">-->
-<!--  <h2 th:case="null">No users found!</h2>-->
-<!--  <div th:case="*">-->
-<!--    <h2>Users</h2>-->
-<!--    <table>-->
-<!--      <thead>-->
-<!--      <tr>-->
-<!--        <th>Id</th>-->
-<!--        <th>UserName</th>-->
-<!--        <th>Password</th>-->
-<!--        <th>Email</th>-->
-<!--        <th>Role</th>-->
-<!--      </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr th:each="user : ${users}">-->
-<!--        <td th:text="${user.id}"></td>-->
-<!--        <td><a th:href="@{/user/{i}(i=${user.getId()})}" th:text="${user.username}"></a></td>-->
-<!--        <td th:text="${user.password}"></td>-->
-<!--        <td th:text="${user.email}"></td>-->
-<!--        <td th:each ="role : ${user.getRoles()}" th:text=" ${role.rolename}"></td>-->
-<!--        <td class="no-border">-->
-<!--          <form th:method="get" th:action="@{/admin/{i}/edit(i=${user.getId()})}">-->
-<!--            <input type="submit" value="Edit"/>-->
-<!--          </form>-->
-<!--        </td>-->
-<!--        <td class="no-border">-->
-<!--          <form th:method="delete" th:action="@{/admin}">-->
-<!--            <input type="hidden" name="id" th:value="${user.getId()}">-->
-<!--            <input type="submit" value="Delete"/>-->
-<!--          </form>-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
-<!--  <form th:method="get" th:action="@{/admin/newUser}">-->
-<!--    <input type="submit" value="Create"/>-->
-<!--  </form>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->
-
-
-
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -64,8 +7,16 @@
           crossorigin="anonymous"> <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .block {
+        display: inline-block;
+    }
+    select {
+        font-size: 120%;
+        width: 45%;
+    }
+</style>
 <body>
-
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="bg-dark  ">
@@ -75,7 +26,16 @@
             </span>
                 &nbsp;
                 <span class="text-white h6">
-                    <td th:block class="font-weight-normal" th:each ="role : ${currentUser.getRoles()}" th:text=" 'with roles: '+ ${role.rolename}">ADMIN</td>
+                    <strong>with roles :
+                    <th:block th:each="role: ${currentUser.getRoles()}">
+                        <div class="block" th:if="${role.rolename} == 'ROLE_ADMIN'">
+                            Admin
+                        </div>
+                        <div class = "block" th:if="${role.rolename} == 'ROLE_USER'">
+                            User
+                        </div>
+                    </th:block>
+                    </strong>
             </span>
             </div>
             <div class="d-inline float-right nav mr-0 pr-0">
@@ -134,7 +94,16 @@
                                             <td th:utext="${person.getLastName()}">...</td>
                                             <td th:utext="${person.getAge()}">...</td>
                                             <td th:utext="${person.getEmail()}">...</td>
-                                            <td th:each ="role : ${person.getRoles()}" th:utext=" ${role.rolename}"></td>
+                                            <td>
+                                            <th:block th:each="role: ${person.getRoles()}">
+                                                <div class="block" th:if="${role.rolename} == 'ROLE_ADMIN'">
+                                                    Admin
+                                                </div>
+                                                <div class = "block" th:if="${role.rolename} == 'ROLE_USER'">
+                                                    User
+                                                </div>
+                                            </th:block>
+                                            </td>
                                             <td>
                                             <button type="button" class="btn btn-info" data-toggle="modal" th:data-target="${'#editUser' + person.id}">Edit</button>
 
@@ -264,7 +233,7 @@
                                                                                 </label>
                                                                             </p>
                                                                             <p>
-                                                                                <label class="container-fluid col-6" for="rolesDeleteUser"><strong>Role</strong></label>
+                                                                                <label class="container-fluid" for="rolesDeleteUser"><strong>Role</strong></label>
                                                                                 <select id="rolesDeleteUser" class="form-select" size="2" name="listOfRoles" multiple="" required="required">
                                                                                     <option selected="selected" value="1">USER</option>
                                                                                     <option value="2">ADMIN</option>
@@ -333,13 +302,13 @@
                                                         </label>
                                                     </p>
                                                     <p>
-                                                        <label class="container-fluid" for="newUserRoles"><strong>Role</strong></label>
-                                                            <select id="newUserRoles" class="form-select" size="2" name="listOfRoles" multiple="" required="required">
-                                                                <option selected="selected" value="1">USER</option>
-                                                                <option value="2">ADMIN</option>
-                                                            </select>
-                                                        </label>
+                                                        <label class="container-fluid " for="newUserRoles"><strong>Role</strong></label>
+                                                        <select style="width: 85%;" id="newUserRoles" class="form-select" size="2" name="listOfRoles" multiple="" required="required">
+                                                            <option selected="selected" value="1">USER</option>
+                                                            <option value="2">ADMIN</option>
+                                                        </select>
                                                     </p>
+
                                                     <button type="submit" id="newUserButton" class="btn btn-success">Add new user</button>
                                                 </form>
                                             </div>
@@ -372,7 +341,16 @@
                                 <td th:utext="${currentUser.getLastName()}">...</td>
                                 <td th:utext="${currentUser.getAge()}">...</td>
                                 <td th:utext="${currentUser.getEmail()}">...</td>
-                                <td th:each ="role : ${currentUser.getRoles()}" th:utext=" ${role.rolename}"></td>
+                                <td>
+                                    <th:block th:each="role: ${currentUser.getRoles()}">
+                                        <div class="block" th:if="${role.rolename} == 'ROLE_ADMIN'">
+                                            Admin
+                                        </div>
+                                        <div class = "block" th:if="${role.rolename} == 'ROLE_USER'">
+                                            User
+                                        </div>
+                                    </th:block>
+                                </td>
                                 </tbody>
                             </table>
                         </div>

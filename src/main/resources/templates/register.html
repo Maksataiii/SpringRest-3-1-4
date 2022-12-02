@@ -10,6 +10,11 @@
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
 </head>
+<style>
+    select {
+        width: 50%;
+    }
+</style>
 <body>
 <div class="container">
     <form class="form-signin" th:method="post" th:action="@{/register}">
@@ -53,12 +58,10 @@
         </p>
         <tr>
             <td>
-                <label>Roles:
-                    <select size="1" multiple name="listRoles" required="required">
-                        <option selected="selected" value="1">USER</option>
-                        <option value="2">ADMIN</option>
-                    </select>
-                </label>
+                <select class = "justify-content-center" size="2" multiple name="listRoles" required="required">
+                    <option selected="selected" value="1">USER</option>
+                    <option value="2">ADMIN</option>
+                </select>
             </td>
         </tr>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>

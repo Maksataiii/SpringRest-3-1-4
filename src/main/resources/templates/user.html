@@ -8,7 +8,11 @@
     <title>User Panel</title>
 </head>
 <body>
-
+<style>
+    .block {
+        display: inline-block;
+    }
+</style>
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="bg-dark  ">
@@ -18,7 +22,16 @@
             </span>
                 &nbsp;
                 <span class="text-white h6">
-                    <td th:block class="font-weight-normal" th:each ="role : ${user.getRoles()}" th:text=" 'with roles: '+ ${role.rolename}"></td>
+                    <strong>with roles :
+                    <th:block th:each="role: ${user.getRoles()}">
+                        <div class="block" th:if="${role.rolename} == 'ROLE_ADMIN'">
+                            Admin
+                        </div>
+                        <div class = "block" th:if="${role.rolename} == 'ROLE_USER'">
+                            User
+                        </div>
+                    </th:block>
+                    </strong>
             </span>
             </div>
             <div class="d-inline float-right nav mr-0 pr-0">
@@ -33,13 +46,13 @@
         <div class="col-2" style="padding: 0; padding-top: 20px">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#userPanel">User</a>
+                    <a class="nav-link active" data-toggle="tab" href="#userPanel">User</a>
                 </li>
             </ul>
         </div>
         <div class="col-10 bg-light">
             <div class="tab-content" style="padding-top: 20px; height: 100vh">
-                <div class="tab-pane" id="userPanel">
+                <div class="tab-pane fade show active" id="userPanel">
                     <h2>User information-page</h2>
                     <div class="card">
                         <h5 class="card-header">About user</h5>
@@ -61,7 +74,16 @@
                                 <td th:utext="${user.getLastName()}">...</td>
                                 <td th:utext="${user.getAge()}">...</td>
                                 <td th:utext="${user.getEmail()}">...</td>
-                                <td th:each ="role : ${user.getRoles()}" th:utext=" ${role.rolename}"></td>
+                                <td>
+                                    <th:block th:each="role: ${user.getRoles()}">
+                                        <div class="block" th:if="${role.rolename} == 'ROLE_ADMIN'">
+                                            Admin
+                                        </div>
+                                        <div class = "block" th:if="${role.rolename} == 'ROLE_USER'">
+                                            User
+                                        </div>
+                                    </th:block>
+                                </td>
                                 </tbody>
                             </table>
                         </div>
