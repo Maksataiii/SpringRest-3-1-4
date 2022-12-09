@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,8 +11,6 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "roles")
-//, indexes = {
-//        @Index(name = "idx_role_rolename", columnList = "rolename"
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +18,8 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "rolename", unique = true)
     private String rolename;
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER)
+    @JsonIgnore
     private List< User > users;
 
     public Role() {

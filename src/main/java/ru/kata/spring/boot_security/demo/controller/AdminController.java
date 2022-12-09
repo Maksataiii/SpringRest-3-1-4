@@ -1,30 +1,17 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
-
-import javax.validation.Valid;
 import java.util.Collection;
 
-@Controller
-@RequestMapping("/admin")
+@RestController
 public class AdminController {
     private UserService userService;
     private RoleService roleService;
@@ -48,58 +35,50 @@ public class AdminController {
     /***
      * Сохранить в базу
      */
-    @PostMapping
-    public String createUser(@RequestParam("listOfRoles") Collection<Role> roles, @ModelAttribute("newUser")@Valid User user, BindingResult bindingResult) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(roles);
-        if(bindingResult.hasErrors()) {
-            return "redirect:/admin";
-        }
+    @PostMapping("/admin")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.createOrUpdate(user);
-        return "redirect:/admin";
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/roles")
+    public ResponseEntity<Collection<Role>> getAllRoles() {
+        return new ResponseEntity<>(roleService.listRoles(), HttpStatus.OK);
     }
     /***
      * Получить всех пользователей
      */
-    @GetMapping
-    public String adminPage(Model model, @AuthenticationPrincipal User currentUser) {
-        model.addAttribute("users", userService.getUsersList());
-        model.addAttribute("currentUser",currentUser);
-        model.addAttribute("newUser", new User());
-        model.addAttribute("listOfRoles", roleService.getRoles());
-        return "user_list";
+    @GetMapping("/admin")
+    public ResponseEntity<Collection<User>> adminPage() {
+        final Collection<User> users = userService.getUsersList();
+        return users != null &&  !users.isEmpty()
+                ? new ResponseEntity<>(users, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     /***
      * Получить одного пользователя
      */
-    @GetMapping("/{id}")
-    public String getUserById(Model model, @PathVariable(name = "id") Long id) {
-        model.addAttribute("user", userService.getUser(id));
-        return "user";
+    @GetMapping("/admin/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable(name = "id") Long id) {
+        return new ResponseEntity<>(userService.getUser(id),HttpStatus.OK);
     }
     /***
      * Сохранить изменённого пользователя
      */
-    @PatchMapping("/{id}")
-    public String editUser(@RequestParam("listOfRoles") Collection<Role> roles, @ModelAttribute("editUser") User user, @PathVariable("id") int id) {
-        user.setUsername(user.getUsername());
-        user.setFirstName(user.getFirstName());
-        user.setLastName(user.getLastName());
-        user.setAge(user.getAge());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEmail(user.getEmail());
-        user.setRoles(roles);
+    @PatchMapping("/admin/{id}")
+    public ResponseEntity<User> editUser(@RequestBody User user) {
         userService.createOrUpdate(user);
-        return "redirect:/admin";
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
+
     /***
      * Удалить пользователя (подготовки объекта User не требуется)
      */
-    @DeleteMapping("/{id}")
-    public String deleteUserById(@ModelAttribute("user") User user,
-                                 @PathVariable("id") Long id) {
+    @DeleteMapping("/admin/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable(name = "id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/admin";
+        return ResponseEntity.ok().build();
     }
 }
