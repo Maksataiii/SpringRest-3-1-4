@@ -22,10 +22,10 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
             .disable()
             .authorizeRequests()
             //Доступ только для не зарегистрированных пользователей
-            .antMatchers("/", "/register","/admin/**","/user").permitAll()
+            .antMatchers("/", "/register","/admin/**").permitAll()
             //Доступ только для пользователей с ролью Администратор
 //            .antMatchers("/admin/**").hasRole("ADMIN")
-//            .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+            .antMatchers("/user").hasAnyRole("USER", "ADMIN")
 
             //Все остальные страницы требуют аутентификации
             .anyRequest().authenticated()
