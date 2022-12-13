@@ -42,12 +42,12 @@ async function deleteUser(modal, id) {
                 </div>
                 
                  <div class="form-group">
-                <label for="roles" class="com-form-label">Role:</label>
-                <select id="roles" class="form-control select" size="2" name="roles" style="max-height: 100px" disabled>
-                <option>${user.roles.map(role => " " + role.name.substring(5))}</option>
-            })}</option>
-                </select>
-            </div>
+                     <label for="rolesDelete" class="com-form-label">Role:</label>
+                        <select multiple id="rolesDelete" class="form-control select" size="2">
+                             <option value="ROLE_USER">USER</option>
+                             <option value="ROLE_ADMIN">ADMIN</option>
+                        </select>
+                </div>
             </form>
         `;
         modal.find('.modal-body').append(bodyForm);
