@@ -23,7 +23,7 @@ async function editUser(modal, id) {
                </div>
                 <div class="form-group">
                     <label for="password" class="com-form-label">Password</label>
-                    <input type="password" class="form-control" id="password" value="" placeholder="Enter new or repeat your password">
+                    <input type="password" class="form-control" id="password" value="${user.password}">
                 </div>
                 <div class="form-group">
                     <label for="lastname" class="com-form-label">First Name</label>
@@ -50,8 +50,6 @@ async function editUser(modal, id) {
                              <option value="ROLE_ADMIN">ADMIN</option>
                         </select>
                 </div>
-                
-                
             </form>
         `;
         modal.find('.modal-body').append(bodyForm);
