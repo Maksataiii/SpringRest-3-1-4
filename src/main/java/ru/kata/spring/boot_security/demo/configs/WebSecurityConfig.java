@@ -1,13 +1,17 @@
 package ru.kata.spring.boot_security.demo.configs;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
 
@@ -22,9 +26,9 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
             .disable()
             .authorizeRequests()
             //Доступ только для не зарегистрированных пользователей
-            .antMatchers("/", "/register","/admin/**").permitAll()
+            .antMatchers("/", "/register").permitAll()
             //Доступ только для пользователей с ролью Администратор
-//            .antMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
 
             //Все остальные страницы требуют аутентификации

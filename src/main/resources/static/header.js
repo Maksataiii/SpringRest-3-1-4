@@ -42,20 +42,20 @@ const userFetch = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
-    findAllUsers: async () => await fetch('http://localhost:8080/admin'),
-    findUserByUsername: async () => await fetch('http://localhost:8080/user'),
-    findOneUser: async (id) => await fetch(`http://localhost:8080/admin/${id}`),
-    addNewUser: async (user) => await fetch('http://localhost:8080/admin', {
+    findAllUsers: async () => await fetch('api/admin'),
+    findUserByUsername: async () => await fetch('api/user'),
+    findOneUser: async (id) => await fetch('api/admin'+id),
+    addNewUser: async (user) => await fetch('api/admin', {
         method: 'POST',
         headers: userFetch.headers,
         body: JSON.stringify(user)
     }),
-    updateUser: async (user) => await fetch('http://localhost:8080/admin/${id}', {
+    updateUser: async (user) => await fetch('api/admin/${id}', {
         method: 'PATCH',
         headers: userFetch.headers,
         body: JSON.stringify(user)
     }),
-    deleteUser: async (id) => await fetch('http://localhost:8080/admin/${id}', {
+    deleteUser: async (id) => await fetch('api/admin/${id}', {
         method: 'DELETE',
         headers: userFetch.headers})
 }

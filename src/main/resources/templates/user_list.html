@@ -100,41 +100,41 @@
                                         <h5 class="card-header">New user</h5>
                                         <div class="card-body text-center">
                                             <div class="form-justify-content-center mx-auto col-3">
-                                                <form id="formNewUser" name="formNewUser" th:method="POST" th:action="@{/admin}" th:object="${newUser}">
+                                                <form id="formNewUser" name="formNewUser">
                                                     <p>
                                                         <label class="container-fluid" for="newUserUsername">
                                                             <strong>Username</strong>
-                                                            <input class="form-control" type="text" th:field="*{username}" id="newUserUsername"/>
+                                                            <input class="form-control" type="text" id="newUserUsername"/>
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserFirstName">
                                                             <strong>First Name</strong>
-                                                            <input class="form-control" type="text" th:field="*{firstName}" name="firstName" id="newUserFirstName">
+                                                            <input class="form-control" type="text" name="firstName" id="newUserFirstName">
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserLastName">
                                                             <strong>Last Name</strong>
-                                                            <input class="form-control" type="text" th:field="*{lastName}" name="lastName" id="newUserLastName">
+                                                            <input class="form-control" type="text" name="lastName" id="newUserLastName">
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserAge">
                                                             <strong>Age</strong>
-                                                            <input class="form-control" type="text" th:field="*{age}" name="age" id="newUserAge">
+                                                            <input class="form-control" type="text" name="age" id="newUserAge">
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserEmail">
                                                             <strong>Email</strong>
-                                                            <input class="form-control" type="text" th:field="*{email}" name="email" id="newUserEmail">
+                                                            <input class="form-control" type="text"  name="email" id="newUserEmail">
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserPassword">
                                                             <strong>Password</strong>
-                                                            <input class="form-control" type="text" th:field="*{password}" name="password" id="newUserPassword">
+                                                            <input class="form-control" type="text" name="password" id="newUserPassword">
                                                         </label>
                                                     </p>
                                                     <p>
@@ -209,9 +209,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-<script src="/static/newUser.js"></script>
-<script src="/static/header.js"></script>
-<script src="/static/editUser.js"></script>
-<script src="/static/deleteUser.js"></script>
+<script type="text/javascript" src="/newUser.js"></script>
+<script type="text/javascript" src="/header.js"></script>
+<script type="text/javascript" src="/editUser.js"></script>
+<script type="text/javascript" src="/deleteUser.js"></script>
 </body>
 </html>
