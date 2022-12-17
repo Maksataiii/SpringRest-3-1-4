@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
+//@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
 
@@ -26,10 +26,10 @@ protected void configure(HttpSecurity httpSecurity) throws Exception {
             .disable()
             .authorizeRequests()
             //Доступ только для не зарегистрированных пользователей
-            .antMatchers("/", "/register").permitAll()
+            .antMatchers("/", "/register","/admin/**","/user").permitAll()
             //Доступ только для пользователей с ролью Администратор
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+//            .antMatchers("/admin/**").hasRole("ADMIN")
+//            .antMatchers("/user").hasAnyRole("USER", "ADMIN")
 
             //Все остальные страницы требуют аутентификации
             .anyRequest().authenticated()

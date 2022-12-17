@@ -68,18 +68,18 @@ public class AdminRestController {
     /***
      * Сохранить изменённого пользователя
      */
-    @PatchMapping("/{id}")
-    public ResponseEntity<User> editUser(@RequestBody User user) {
+    @PutMapping
+    public ResponseEntity<String> editUser(@RequestBody User user) {
         userService.createOrUpdate(user);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /***
      * Удалить пользователя (подготовки объекта User не требуется)
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<HttpStatus> deleteUserById(@PathVariable(name = "id") Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

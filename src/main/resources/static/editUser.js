@@ -41,8 +41,6 @@ async function editUser(modal, id) {
                     <label for="email" class="com-form-label">Email</label>
                     <input type="text" class="form-control" id="email" value="${user.email}">
                 </div>
-                
-                
                 <div class="form-group">
                      <label for="rolesEdit" class="com-form-label">Role:</label>
                         <select multiple id="rolesEdit" class="form-control select" size="2">
@@ -82,7 +80,6 @@ async function editUser(modal, id) {
             age: age,
             email: email,
             roles: checkedRoles()
-
         }
         const response = await userFetch.updateUser(data, id);
 
