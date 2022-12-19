@@ -43,8 +43,8 @@ async function deleteUser(modal, id) {
                 
                  <div class="form-group">
                      <label for="rolesDelete" class="com-form-label">Role:</label>
-                        <select multiple id="rolesDelete" class="form-control select" size="2">
-                             <option value="ROLE_USER">USER</option>
+                        <select multiple id="rolesDelete" class="form-control select" size="2" required="required">
+                             <option selected="selected" value="ROLE_USER">USER</option>
                              <option value="ROLE_ADMIN">ADMIN</option>
                         </select>
                 </div>

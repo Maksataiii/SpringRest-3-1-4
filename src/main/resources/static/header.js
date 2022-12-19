@@ -1,6 +1,6 @@
 let roleList = [
-    {id: 2, role: "ROLE_USER"},
-    {id: 1, role: "ROLE_ADMIN"}
+    {id: 1, role: "ROLE_USER"},
+    {id: 2, role: "ROLE_ADMIN"}
 ]
 
 $(async function () {

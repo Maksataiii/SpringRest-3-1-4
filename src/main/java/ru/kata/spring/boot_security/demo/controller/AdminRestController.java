@@ -38,6 +38,7 @@ public class AdminRestController {
      */
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createOrUpdate(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -70,6 +71,7 @@ public class AdminRestController {
      */
     @PutMapping
     public ResponseEntity<String> editUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createOrUpdate(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
