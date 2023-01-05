@@ -4,7 +4,7 @@ $(async function () {
 })
 
 const userFetch = {
-    findUserByUsername: async () => await fetch(`/api/user`),
+    findUserByUsername: async () => await fetch('api/user'),
 }
 
 async function infoUser() {
@@ -19,7 +19,7 @@ async function infoUser() {
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link disabled text-white">
-                            with roles ${user.roles.map(role => " " + role.name.substring(5))}
+                            with roles ${user.authorities.map(e => " " + e.authority.substring(5))}
                         </a>
                     </li>
                 </ul>
@@ -30,7 +30,7 @@ async function infoUser() {
                 <input type="submit" name="target" hidden/>
     </form>
             `
-        });
+        })
     info.innerHTML = temp;
 }
 
@@ -43,12 +43,11 @@ async function userTable() {
             temp += `
                 <tr>
                     <td>${user.id}</td>
-                    <td>${user.username}</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td>${user.roles.map(e => " " + e.name.substring(5))}</td>
+                    <td>${user.authorities.map(e => " " + e.authority.substring(5))}</td>
                 </tr>
                `;
         })

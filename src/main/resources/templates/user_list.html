@@ -8,43 +8,14 @@
     <title>Title</title>
 </head>
 <style>
-    .block {
-        display: inline-block;
-    }
     select {
         font-size: 120%;
         width: 45%;
     }
 </style>
 <body>
-<header class="p-3 bg-dark text-white">
-    <!--    <div class="container">-->
-    <!--        <div class="bg-dark  ">-->
-    <!--            <div class="d-inline">-->
-    <!--            <span class="text-white h6">-->
-    <!--                <strong><th:block th:text="${currentUser.getEmail()}">admin</th:block></strong>-->
-    <!--            </span>-->
-    <!--                &nbsp;-->
-    <!--                <span class="text-white h6">-->
-    <!--                    <strong>with roles :-->
-    <!--                    <th:block th:each="role: ${currentUser.getRoles()}">-->
-    <!--                        <div class="block" th:if="${role.rolename} == 'ROLE_ADMIN'">-->
-    <!--                            Admin-->
-    <!--                        </div>-->
-    <!--                        <div class = "block" th:if="${role.rolename} == 'ROLE_USER'">-->
-    <!--                            User-->
-    <!--                        </div>-->
-    <!--                    </th:block>-->
-    <!--                    </strong>-->
-    <!--            </span>-->
-    <!--            </div>-->
-    <!--            <div class="d-inline float-right nav mr-0 pr-0">-->
-    <!--                <a class="text-secondary nav-item " th:href="@{/logout}">logout</a>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-</header>
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="info">
+</nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col-2" style="padding: 0; padding-top: 20px">
@@ -181,7 +152,7 @@
                     <div class="card">
                         <h5 class="card-header">About user</h5>
                         <div class="card-body text-center">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="userTable">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -192,7 +163,7 @@
                                     <th>Role</th>
                                 </tr>
                                 </thead>
-                                <tbody id="tbodyAboutUser">
+                                <tbody>
                                 </tbody>
                             </table>
                         </div>
